@@ -8,7 +8,7 @@
     var getSelection = function(selector) {
         var matched = this;
         if (selector && typeof selector === 'string') {
-            matched = $.find(selector, matched);
+            matched = $.filter(selector, matched);
         }
         return matched;
     };
