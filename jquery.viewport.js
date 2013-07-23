@@ -43,7 +43,7 @@
             matched = getSelection.call(this, selector);
 
         matched = $.grep(matched, function (el) {
-            var el = $(el);
+            el = $(el);
             return viewBottom < el.offset().top || viewTop > (el.offset().top + el.height());
         });
 
