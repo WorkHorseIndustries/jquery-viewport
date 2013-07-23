@@ -1,7 +1,6 @@
 ﻿/*
     Extends jquery to allow element traversal relative to the current viewport.  using a snapshot of the viewport
-    at the time the function is called it compares the exisiting collection of jquery elements to that current instance 
-    of the snapshot.
+    at the time the function is called it compares the exisiting collection of jquery elements to that snapshot.
 */
 (function (jQuery) {
     // get the elements in the collection that are below the current viewport
