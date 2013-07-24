@@ -2,18 +2,19 @@
     Extends jquery to allow element traversal relative to the current viewport.  using a snapshot of the viewport
     at the time the function is called it compares the exisiting collection of jquery elements to that snapshot.
 */
-(function (jQuery) {
+(function (jQuery, window) {
+    "use strict";
     // get the elements in the collection that are below the current viewport
+    var $ = jQuery,
+        getSelection = function (selector) {
+            var matched = this;
+            if (selector && typeof selector === 'string') {
+                matched = $.filter(selector, matched);
+            }
+            return matched;
+        };
 
-    var getSelection = function(selector) {
-        var matched = this;
-        if (selector && typeof selector === 'string') {
-            matched = $.find(selector, matched);
-        }
-        return matched;
-    };
-
-    jQuery.fn.aboveViewport = (function (selector) {
+    jQuery.fn.aboveViewport = function (selector) {
         var viewTop = $(window).scrollTop(),
             matched = getSelection.call(this, selector);
 
@@ -23,10 +24,10 @@
         });
 
         return this.pushStack(matched);
-    });
+    };
 
     // get the elements in the collection that are above the current viewport
-    jQuery.fn.belowViewport = (function (selector) {
+    jQuery.fn.belowViewport = function (selector) {
         var viewBottom = $(window).scrollTop() + $(window).height(),
             matched = getSelection.call(this, selector);
 
@@ -34,10 +35,10 @@
             return viewBottom < $(el).offset().top;
         });
         return this.pushStack(matched);
-    });
+    };
 
     // get the elements in the collection that are outside the current viewport
-    jQuery.fn.outsideViewport = (function (selector) {
+    jQuery.fn.outsideViewport = function (selector) {
         var viewTop = $(window).scrollTop(),
             viewBottom = viewTop + $(window).height(),
             matched = getSelection.call(this, selector);
@@ -48,10 +49,10 @@
         });
 
         return this.pushStack(matched);
-    });
+    };
 
     // get the elements in the collection that are outside the current viewport
-    jQuery.fn.insideViewport = (function (selector) {
+    jQuery.fn.insideViewport = function (selector) {
         var viewTop = $(window).scrollTop(),
             viewBottom = viewTop + $(window).height(),
             matched = getSelection.call(this, selector);
@@ -60,10 +61,9 @@
             var top = $(el).offset().top,
                 bottom = top + $(el).height();
             return (viewTop < top && viewBottom > top) || (viewBottom < bottom && viewTop > bottom);
-                
         });
 
         return this.pushStack(matched);
-    });
+    };
 
-})(jQuery);
+}(jQuery, window));
