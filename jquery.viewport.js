@@ -2,19 +2,18 @@
     Extends jquery to allow element traversal relative to the current viewport.  using a snapshot of the viewport
     at the time the function is called it compares the exisiting collection of jquery elements to that snapshot.
 */
-(function (jQuery, window) {
+(function ($, window) {
     "use strict";
     // get the elements in the collection that are below the current viewport
-    var $ = jQuery,
-        getSelection = function (selector) {
-            var matched = this;
-            if (selector && typeof selector === 'string') {
-                matched = $.filter(selector, matched);
-            }
-            return matched;
-        };
+    var getSelection = function (selector) {
+        var matched = this;
+        if (selector && typeof selector === 'string') {
+            matched = $.filter(selector, matched);
+        }
+        return matched;
+    };
 
-    jQuery.fn.aboveViewport = function (selector) {
+    $.fn.aboveViewport = function (selector) {
         var viewTop = $(window).scrollTop(),
             matched = getSelection.call(this, selector);
 
@@ -27,7 +26,7 @@
     };
 
     // get the elements in the collection that are above the current viewport
-    jQuery.fn.belowViewport = function (selector) {
+    $.fn.belowViewport = function (selector) {
         var viewBottom = $(window).scrollTop() + $(window).height(),
             matched = getSelection.call(this, selector);
 
@@ -38,7 +37,7 @@
     };
 
     // get the elements in the collection that are outside the current viewport
-    jQuery.fn.outsideViewport = function (selector) {
+    $.fn.outsideViewport = function (selector) {
         var viewTop = $(window).scrollTop(),
             viewBottom = viewTop + $(window).height(),
             matched = getSelection.call(this, selector);
@@ -52,7 +51,7 @@
     };
 
     // get the elements in the collection that are outside the current viewport
-    jQuery.fn.insideViewport = function (selector) {
+    $.fn.insideViewport = function (selector) {
         var viewTop = $(window).scrollTop(),
             viewBottom = viewTop + $(window).height(),
             matched = getSelection.call(this, selector);
